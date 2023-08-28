@@ -5,6 +5,7 @@ import { Hello } from './components/hello';
 import { Input } from './components/input';
 import { SolarSystem } from './components/solar-system';
 import { Planet } from './components/planet';
+import {Joke} from "./components/joke";
 
 // export function App() {
 //   return <div>Hello world!</div>;
@@ -31,6 +32,9 @@ export const App = () => {
       <div>
         <Planet />
       </div>
+        <div>
+            <Joke />
+        </div>
     </div>
   );
 };
