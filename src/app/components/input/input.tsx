@@ -12,5 +12,6 @@ export const Input: FC<Props> = ({ onInputChange }) => (
       //   console.log(event.target.value);
       onInputChange(event.target.value);
     }}
+    data-testid="input-element"
   />
 );
