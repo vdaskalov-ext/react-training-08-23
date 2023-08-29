@@ -1,6 +1,7 @@
 import {FC, PropsWithChildren} from 'react';
 import {usePlanets} from 'src/app/swapi/hooks';
 import {Planet} from '../planet';
+import {Link} from "react-router-dom";
 
 const StarWarsContainer: FC<PropsWithChildren> = ({children}) => (
     <>
@@ -25,9 +26,9 @@ export const StarWars: FC = () => {
             <ul>
                 {planets?.map((planet, idx) => {
                     return (
-                        <li key={planet.name}>
+                        <Link key={planet.name} to={`/planets/${idx + 1}`} state={{foo: 'bar', answer: 42}}>
                             <Planet name={planet.name}/>
-                        </li>
+                        </Link>
                     );
                 })}
             </ul>
