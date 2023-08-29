@@ -3,4 +3,7 @@
 
 export const environment = {
   production: false,
+  API_URL: 'https://react-bootcamp-backend-valado.vercel.app',
+  // API_URL: 'http://localhost:9000',
+  SWAPI_URL: 'https://swapi.dev/api',
 };

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Planet } from './model/planet';
-
-const SWAPI_API_URL = 'https://swapi.dev/api';
+import { environment } from 'src/environments/environment';
 
 type PlanetsResponsePlanet = { name: string };
 
@@ -26,7 +25,7 @@ export const usePlanets = (): {
   previous?: () => void;
   next?: () => void;
 } => {
-  const [url, setUrl] = useState(`${SWAPI_API_URL}/planets/`);
+  const [url, setUrl] = useState(`${environment.SWAPI_URL}/planets/`);
   const [response, setResponse] = useState<PlanetsResponse | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -68,7 +67,7 @@ export const usePlanetDetails = (
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    const url = `${SWAPI_API_URL}/planets/${id}`;
+    const url = `${environment.SWAPI_URL}/planets/${id}`;
     fetch(url)
       .then((response) => response.json())
       .then((data: PlanetDetailsResponse) => {
