@@ -1,6 +1,8 @@
 import {createBrowserRouter, Navigate, Outlet} from 'react-router-dom';
 import {FC, lazy, PropsWithChildren, ReactNode} from "react";
 import {AuthContextProvider, useAuth, withAuthGuard} from "./components/auth";
+import {AppContainer} from "./components/app-container";
+import {CustomThemeProvider} from "./components/theme-provider";
 
 const Home = lazy(() => import('./pages/home'));
 const Login = lazy(() => import('./pages/login'));
@@ -9,9 +11,15 @@ const PlanetDetails = lazy(() => import('./pages/planet-details'));
 
 export const router = createBrowserRouter([
     {
-        path: '/', element: <AuthContextProvider><Outlet/></AuthContextProvider>, children: [
+        path: '/',
+        element: <AuthContextProvider>
+            <CustomThemeProvider>
+                <Outlet/>
+            </CustomThemeProvider>
+        </AuthContextProvider>,
+        children: [
             {
-                path: '/', element: withAuthGuard(<Outlet/>), children: [
+                path: '/', element: withAuthGuard(<AppContainer/>), children: [
                     {index: true, element: <Navigate to="/home"/>},
                     {path: '/home', element: <Home/>},
                     {path: 'planets/:id', element: <PlanetDetails/>},

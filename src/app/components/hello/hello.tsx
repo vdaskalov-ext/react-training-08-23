@@ -1,4 +1,5 @@
 import { Component, Fragment } from 'react';
+import {Button} from "@mui/material";
 
 interface Props {
   name?: string;
@@ -32,11 +33,11 @@ export class Hello extends Component<Props, State> {
       <Fragment>
         <div>Hello {this.state.showName && this.props.name}!</div>
         <div>
-          <button
+          <Button variant="outlined"
             onClick={() => this.setState({ showName: !this.state.showName })}
           >
             Toggle name
-          </button>
+          </Button>
         </div>
       </Fragment>
     );
