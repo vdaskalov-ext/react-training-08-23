@@ -1,12 +1,11 @@
-import { useAuth } from '../auth/auth-context';
-import { getDeepLink } from '../auth/auth-utils';
-import { Navigate } from 'react-router-dom';
+import { Send } from '@mui/icons-material';
 import { Box, Button, Paper, Stack, TextField } from '@mui/material';
 import { Field, FieldProps, Form, Formik } from 'formik';
-import { Send } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
-import { LoginSchema } from './login-schema';
+import { Link, Navigate } from 'react-router-dom';
 import { getErrors } from '../../utils/formik';
+import { useAuth } from '../auth/auth-context';
+import { getDeepLink } from '../auth/auth-utils';
+import { LoginSchema } from './login-schema';
 
 const initialValues = {
   email: '',

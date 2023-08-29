@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContext {
   isAuthenticated: boolean;
@@ -23,8 +24,12 @@ const AuthContext = createContext<AuthContext>(initialValue);
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const login = () => {
+  const navigate = useNavigate();
+
+  const login = (email: string, password: string) => {
     setIsAuthenticated(true);
+    // TODO: call the backend and if successfully logged in, navigate to /home
+    navigate('/home');
     return Promise.resolve();
   };
 

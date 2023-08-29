@@ -4,40 +4,85 @@ import userEvent from '@testing-library/user-event';
 
 import { LoginForm } from './login-form';
 import { MemoryRouter } from 'react-router-dom';
+
 import * as auth from '../auth/auth-context';
 
 describe('LoginForm', () => {
   let loginMock: jest.Mock;
 
-  beforeEach(() => {
-    loginMock = jest.fn().mockReturnValue(Promise.resolve());
-    jest.spyOn(auth, 'useAuth').mockReturnValue({
-      login: loginMock,
-      isAuthenticated: false,
-      logout: jest.fn(),
+  describe('authenticated false', () => {
+    beforeEach(() => {
+      loginMock = jest.fn().mockReturnValue(Promise.resolve());
+      jest.spyOn(auth, 'useAuth').mockReturnValue({
+        login: loginMock,
+        isAuthenticated: false,
+        logout: jest.fn(),
+        register: jest.fn(),
+      });
+    });
+
+    it('rendering and submitting a basic Formik form', async () => {
+      const testEmail = 'test@mail.com';
+      const testPassword = 'test-password';
+
+      render(
+        <MemoryRouter>
+          <LoginForm />
+        </MemoryRouter>
+      );
+
+      const user = userEvent.setup();
+
+      await user.type(
+        screen.getByRole('textbox', { name: /email/i }),
+        testEmail
+      );
+      // password doesn't have a role due to security reasons
+      // https://github.com/testing-library/dom-testing-library/issues/567
+      await user.type(screen.getByLabelText(/password/i), testPassword);
+      await user.click(screen.getByRole('button', { name: /login/i }));
+
+      await waitFor(() =>
+        expect(loginMock).toHaveBeenCalledWith(testEmail, testPassword)
+      );
     });
   });
 
-  it('rendering and submitting a basic Formik form', async () => {
-    const testEmail = 'test@mail.com';
-    const testPassword = 'test-password';
+  // describe('authenticated true', () => {
+  //   beforeEach(() => {
+  //     loginMock = jest.fn().mockReturnValue(Promise.resolve());
+  //     jest.spyOn(auth, 'useAuth').mockReturnValue({
+  //       login: loginMock,
+  //       isAuthenticated: true,
+  //       logout: jest.fn(),
+  //       register: jest.fn(),
+  //     });
+  //   });
 
-    render(
-      <MemoryRouter>
-        <LoginForm />
-      </MemoryRouter>
-    );
+  //   it('rendering and submitting a basic Formik form', async () => {
+  //     const testEmail = 'test@mail.com';
+  //     const testPassword = 'test-password';
 
-    const user = userEvent.setup();
+  //     render(
+  //       <MemoryRouter>
+  //         <LoginForm />
+  //       </MemoryRouter>
+  //     );
 
-    await user.type(screen.getByRole('textbox', { name: /email/i }), testEmail);
-    // password doesn't have a role due to security reasons
-    // https://github.com/testing-library/dom-testing-library/issues/567
-    await user.type(screen.getByLabelText(/password/i), testPassword);
-    await user.click(screen.getByRole('button', { name: /login/i }));
+  //     const user = userEvent.setup();
 
-    await waitFor(() =>
-      expect(loginMock).toHaveBeenCalledWith(testEmail, testPassword)
-    );
-  });
+  //     await user.type(
+  //       screen.getByRole('textbox', { name: /email/i }),
+  //       testEmail
+  //     );
+  //     // password doesn't have a role due to security reasons
+  //     // https://github.com/testing-library/dom-testing-library/issues/567
+  //     await user.type(screen.getByLabelText(/password/i), testPassword);
+  //     await user.click(screen.getByRole('button', { name: /login/i }));
+
+  //     await waitFor(() =>
+  //       expect(loginMock).toHaveBeenCalledWith(testEmail, testPassword)
+  //     );
+  //   });
+  // });
 });
