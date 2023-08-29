@@ -1,7 +1,7 @@
 import {FC, PropsWithChildren, ReactNode} from "react";
 import {useAuth} from "./auth-context";
 import {Navigate, useLocation} from "react-router-dom";
-import {storeDeepLink} from "./utils";
+import {storeDeepLink} from "./auth-utils";
 
 export const AuthGuard: FC<PropsWithChildren> = ({children}) => {
     const {isAuthenticated} = useAuth()

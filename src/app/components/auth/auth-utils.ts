@@ -4,5 +4,7 @@ export const storeDeepLink = (link: string) => {
 }
 
 export const getDeepLink = () => {
-    return localStorage.getItem(deepLinkKey)
+    const deepLink = localStorage.getItem(deepLinkKey);
+    localStorage.removeItem(deepLinkKey)
+    return deepLink
 }
