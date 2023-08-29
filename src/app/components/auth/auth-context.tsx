@@ -5,8 +5,7 @@ import {
   useContext,
   useState,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRegister } from './auth-utils';
+import { useLogin, useRegister } from './auth-utils';
 
 interface AuthContext {
   isAuthenticated: boolean;
@@ -25,23 +24,21 @@ const AuthContext = createContext<AuthContext>(initialValue);
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate();
   const register = useRegister();
-
-  const loginHandle = (email: string, password: string) => {
+  const login = useLogin(() => {
     setIsAuthenticated(true);
-    // TODO: call the backend and if successfully logged in, navigate to /home
-    navigate('/home');
-    return Promise.resolve();
-  };
+  });
 
   return (
     <AuthContext.Provider
       value={{
         ...initialValue,
         isAuthenticated,
-        login: loginHandle,
+        login,
         register,
+        logout: () => {
+          setIsAuthenticated(false);
+        },
       }}
     >
       {children}

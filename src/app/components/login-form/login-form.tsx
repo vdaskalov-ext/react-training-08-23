@@ -42,7 +42,7 @@ export const LoginForm = () => {
             initialValues={initialValues}
             validationSchema={LoginSchema}
             onSubmit={(values) => {
-              console.log({ values });
+              // console.log({ values });
               login(values.email, values.password);
             }}
           >
