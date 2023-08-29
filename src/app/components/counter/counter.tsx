@@ -7,6 +7,7 @@ enum CounterAction {
 }
 
 const reducer = (state: number, action: CounterAction) => {
+  // const reducer = (state: number, action: {actionType: CounterAction, payload: any}) => {
   switch (action) {
     case CounterAction.INCREASE:
       return state + 1;
@@ -25,6 +26,7 @@ export const Counter: FC = () => {
       <p>Counter: {value}</p>
       <Button
         onClick={() => {
+          // dispatch({actionType: CounterAction.INCREASE, payload: 1});
           dispatch(CounterAction.INCREASE);
         }}
       >
