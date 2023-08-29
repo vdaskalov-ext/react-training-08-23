@@ -83,7 +83,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "{{REACT_BOOTCAMP_TOKEN}}",
+						"value": "Bearer {{REACT_BOOTCAMP_TOKEN}}",
 						"type": "default"
 					}
 				],
@@ -115,7 +115,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "{{REACT_BOOTCAMP_TOKEN}}",
+						"value": "Bearer {{REACT_BOOTCAMP_TOKEN}}",
 						"type": "default"
 					}
 				],
@@ -147,7 +147,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "{{REACT_BOOTCAMP_TOKEN}}",
+						"value": "Bearer {{REACT_BOOTCAMP_TOKEN}}",
 						"type": "default"
 					}
 				],
@@ -180,7 +180,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "{{REACT_BOOTCAMP_TOKEN}}",
+						"value": "Bearer {{REACT_BOOTCAMP_TOKEN}}",
 						"type": "default"
 					}
 				],
@@ -216,7 +216,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "{{REACT_BOOTCAMP_TOKEN}}",
+						"value": "Bearer {{REACT_BOOTCAMP_TOKEN}}",
 						"type": "default"
 					}
 				],
@@ -248,7 +248,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "{{REACT_BOOTCAMP_TOKEN}}",
+						"value": "Bearer {{REACT_BOOTCAMP_TOKEN}}",
 						"type": "default"
 					}
 				],
