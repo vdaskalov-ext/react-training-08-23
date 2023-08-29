@@ -11,6 +11,7 @@ const Login = lazy(() => import('./pages/login'));
 const Register = lazy(() => import('./pages/register'));
 const NotFound = lazy(() => import('./pages/not-found'));
 const PlanetDetails = lazy(() => import('./pages/planet-details'));
+const IssuesTracker = lazy(() => import('./issue/components/issues-tracker'));
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
           { path: '/home', element: <Home /> },
           { path: 'planets/:id', element: <PlanetDetails /> },
           { path: '/forbidden', element: <div>Hey, you are logged in!</div> },
+          { path: '/issues', element: <IssuesTracker /> },
         ],
       },
       { path: 'login', element: <Login /> },

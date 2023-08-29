@@ -25,7 +25,8 @@
     "react-redux": "^8.1.2",
     "@reduxjs/toolkit": "^1.9.5",
     "redux-logger": "^3.0.6",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "@mui/x-data-grid": "6.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
@@ -50,7 +51,7 @@
     "@types/react-dom": "18.2.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/crypto-js": "^4.1.1",
-    "@types/uuid":"^9.0.2",
+    "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "babel-jest": "^29.4.1",

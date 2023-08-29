@@ -1,7 +1,41 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { Issue } from './model/issue';
 import { RootState } from '../redux/store';
 import { useAppSelector } from '../redux/hooks';
+import { environment } from 'src/environments/environment';
+import { getToken } from '../components/auth/auth-utils';
+
+const getAuthHeader = () => {
+  const token = getToken();
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+};
+
+export const fetchIssues = createAsyncThunk('issues/fetch', async () => {
+  const response = await fetch(`${environment.API_URL}/issues`, {
+    method: 'GET',
+    ...getAuthHeader(),
+  });
+  const resp = await response.json();
+  return (resp.issues as Issue[]) || [];
+});
+
+export const saveIssues = createAsyncThunk(
+  'issues/store',
+  async (_arg, { getState }) => {
+    const state = getState() as RootState;
+    const issues = state.issueTracker.issues;
+    await fetch(`${environment.API_URL}/issues`, {
+      method: 'POST',
+      ...getAuthHeader(),
+      body: JSON.stringify({ issues }),
+    });
+  }
+);
 
 interface IssueTrackerState {
   issues: Issue[];
@@ -31,9 +65,17 @@ export const issueTrackerSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchIssues.fulfilled, (state, action) => {
+      state.issues = action.payload;
+    });
+    builder.addCase(fetchIssues.rejected, (state, action) => {
+      // TODO: handle error - modify state accordingly
+    });
+  },
 });
 
 export const { addIssue, removeIssue, updateIssue } = issueTrackerSlice.actions;
 
 const issueSelector = (state: RootState) => state.issueTracker.issues;
-export const useIssues = () => useAppSelector(issueSelector);
+export const useIssues = (): Issue[] => useAppSelector(issueSelector);

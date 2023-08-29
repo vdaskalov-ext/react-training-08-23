@@ -9,7 +9,7 @@ export enum IssuePriority {
 export interface Issue {
   id: string;
   title: string;
-  description: string;
+  description: string; // TODO
   completed: boolean;
   priority: IssuePriority;
   openedOnDate: number;
