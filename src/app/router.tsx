@@ -1,6 +1,7 @@
 import {createBrowserRouter, Navigate, Outlet} from 'react-router-dom';
 import {FC, lazy, PropsWithChildren, ReactNode} from "react";
-import {AuthContextProvider, useAuth, withAuthGuard} from "./components/auth";
+import {AuthContextProvider,} from "./components/auth/auth-context";
+import {withAuthGuard} from "./components/auth/auth-guard";
 import {AppContainer} from "./components/app-container";
 import {CustomThemeProvider} from "./components/theme-provider";
 

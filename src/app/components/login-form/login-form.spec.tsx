@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import { LoginForm } from './login-form';
 import { MemoryRouter } from 'react-router-dom';
-import * as auth from 'src/app/components/auth/auth-context';
+import * as auth from '../auth/auth-context';
 
 describe('LoginForm', () => {
   let loginMock: jest.Mock;
@@ -36,8 +36,8 @@ describe('LoginForm', () => {
     await user.type(screen.getByLabelText(/password/i), testPassword);
     await user.click(screen.getByRole('button', { name: /login/i }));
 
-    // await waitFor(() =>
-    //   expect(loginMock).toHaveBeenCalledWith(testEmail, testPassword)
-    // );
+    await waitFor(() =>
+      expect(loginMock).toHaveBeenCalledWith(testEmail, testPassword)
+    );
   });
 });

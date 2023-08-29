@@ -1,5 +1,5 @@
 import {useAuth} from "../auth/auth-context";
-import {getDeepLink} from "../auth";
+import {getDeepLink} from "../auth/auth-utils";
 import {Navigate} from "react-router-dom";
 import {Box, Button, Paper, Stack, TextField} from "@mui/material";
 import {Field, FieldProps, Form, Formik} from "formik";
