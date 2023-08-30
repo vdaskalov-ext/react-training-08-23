@@ -17,6 +17,9 @@
     "saveButton": {
       "label": "Save note"
     },
+    "deleteButton": {
+      "label": "Delete note"
+    },
     "title": {
       "label": "Note"
     },

@@ -24,14 +24,20 @@ const addNote = (note: Note) =>
         method: 'PUT',
         body: JSON.stringify({note}),
         ...getAuthHeader()
-    }).then(res => res.json())
+    })
 
 const updateNote = (note: Note) =>
     fetch(`${environment.API_URL}/notes/${note.id}`, {
         method: 'PATCH',
         body: JSON.stringify({note}),
         ...getAuthHeader()
-    }).then(res => res.json())
+    })
+
+const deleteNote = (note: Note) =>
+    fetch(`${environment.API_URL}/notes/${note.id}`, {
+        method: 'DELETE',
+        ...getAuthHeader()
+    })
 
 export const useNotes = () => {
     const {data} = useQuery({queryKey, queryFn: fetchNotes})
@@ -41,13 +47,40 @@ export const useNotes = () => {
 export const useAddNote = () => {
     const queryClient = useQueryClient();
     return useMutation(addNote, {
-        onSuccess: () => invalidateQueryCache(queryClient)
+        onSuccess: () => invalidateQueryCache(queryClient),
     })
 }
 
 export const useUpdateNote = () => {
     const queryClient = useQueryClient();
     return useMutation(updateNote, {
+        // onSuccess: () => invalidateQueryCache(queryClient),
+        onMutate: async (note: Note) => {
+            console.log(' -> onMutate')
+            await queryClient.cancelQueries({queryKey})
+            const previousNotes = queryClient.getQueryData(queryKey)
+
+            // Optimistically update to the new value
+            queryClient.setQueryData(queryKey, (old: Record<string, Note> | undefined) => ({...old, [note.id!!]: note}));
+
+            console.log({previousNotes})
+
+            // Return a context object with the snapshotted value
+            return { previousNotes }
+        },
+        onError: (err, updateNote, context) => {
+            queryClient.setQueryData(queryKey, context?.previousNotes);
+        },
+        onSettled: () => {
+            console.log(" -> onSettled")
+            return invalidateQueryCache(queryClient);
+        },
+    })
+}
+
+export const useDeleteNote = () => {
+    const queryClient = useQueryClient();
+    return useMutation(deleteNote, {
         onSuccess: () => invalidateQueryCache(queryClient)
     })
 }

@@ -1,5 +1,5 @@
 import {useComponentsTranslation} from "../../../i18n";
-import {Box, Grid, Fab, Typography} from "@mui/material";
+import {Box, Grid, Fab, Typography, Divider} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add'
 import {Note} from "../../model/note";
 import {NoteCard} from "../note-card";
@@ -10,6 +10,7 @@ export const NotesGallery = () => {
     const {mutate: addNote} = useAddNote();
     const noteResponse = useNotes();
     const notes = Object.values(noteResponse).map(note => note as Note);
+    const hasFavorites = notes.some(note => note.favorite)
 
     return (
         <Box sx={{width: '100vw', height: 'calc(100% - 40px)'}}>
@@ -25,8 +26,20 @@ export const NotesGallery = () => {
                     <Grid item>
                         <Typography variant="h4">{t('title')}</Typography>
                     </Grid>
+                    {hasFavorites && <>
+                        <Grid container item spacing={3}>
+                            {notes.filter(note => note.favorite).map((note, idx) =>
+                                <Grid xl={2} md={4} sm={6} xs={12} item key={note.id}>
+                                    <NoteCard note={note}/>
+                                </Grid>
+                            )}
+                        </Grid>
+                        <Grid item>
+                            <Divider sx={{width: '100%'}} />
+                        </Grid>
+                    </>}
                     <Grid container item spacing={3}>
-                        {notes.map((note, idx) =>
+                        {notes.filter(note => !note.favorite).map((note, idx) =>
                             <Grid xl={2} md={4} sm={6} xs={12} item key={note.id}>
                                 <NoteCard note={note}/>
                             </Grid>

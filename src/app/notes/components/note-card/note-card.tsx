@@ -3,9 +3,10 @@ import {FC, PropsWithChildren, useEffect, useState} from "react";
 import {Box, Card, CardActions, CardContent, IconButton, Stack, TextField, Typography, useTheme} from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit'
 import SaveIcon from '@mui/icons-material/Save'
+import DeleteIcon from '@mui/icons-material/Delete'
 import tinycolor from 'tinycolor2';
 import {useComponentsTranslation} from "../../../i18n";
-import {useUpdateNote} from "../../hooks";
+import {useDeleteNote, useUpdateNote} from "../../hooks";
 
 interface Props {
     note: Note
@@ -19,6 +20,7 @@ export const NoteCard: FC<PropsWithChildren<Props>> = ({note}) => {
     const [text, setText] = useState(note.text);
     
     const {mutate: updateNote} = useUpdateNote();
+    const {mutate: deleteNote} = useDeleteNote()
 
     useEffect(() => {
         setText(note.text);
@@ -65,6 +67,9 @@ export const NoteCard: FC<PropsWithChildren<Props>> = ({note}) => {
                             <EditIcon/>
                         </IconButton>
                     }
+                    <IconButton aria-label={t('deleteButton.label')} onClick={() => deleteNote(note)} disabled={editing}>
+                        <DeleteIcon />
+                    </IconButton>
                 </Stack>
             </CardActions>
         </Card>
