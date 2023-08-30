@@ -8,7 +8,13 @@
     }
   },
   "NotesGallery": {
-    "title": "Notes Gallery"
+    "title": "Notes Gallery",
+    "favorites": {
+      "title": "Favorite Notes"
+    },
+    "regularNotes": {
+      "title": "Regular notes"
+    }
   },
   "NoteCard": {
     "editButton": {
@@ -19,6 +25,12 @@
     },
     "deleteButton": {
       "label": "Delete note"
+    },
+    "favoriteButton": {
+      "label": "Mark as favorite note"
+    },
+    "unfavoriteButton": {
+      "label": "Unfavorite note"
     },
     "title": {
       "label": "Note"

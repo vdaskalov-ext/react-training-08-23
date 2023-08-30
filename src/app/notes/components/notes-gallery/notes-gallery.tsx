@@ -27,6 +27,9 @@ export const NotesGallery = () => {
                         <Typography variant="h4">{t('title')}</Typography>
                     </Grid>
                     {hasFavorites && <>
+                        <Grid item>
+                            <Typography variant="h6">{t('favorites.title')}</Typography>
+                        </Grid>
                         <Grid container item spacing={3}>
                             {notes.filter(note => note.favorite).map((note, idx) =>
                                 <Grid xl={2} md={4} sm={6} xs={12} item key={note.id}>
@@ -35,7 +38,9 @@ export const NotesGallery = () => {
                             )}
                         </Grid>
                         <Grid item>
-                            <Divider sx={{width: '100%'}} />
+                            <Divider variant="fullWidth" textAlign="left">
+                                <Typography>{t('regularNotes.title')}</Typography>
+                            </Divider>
                         </Grid>
                     </>}
                     <Grid container item spacing={3}>

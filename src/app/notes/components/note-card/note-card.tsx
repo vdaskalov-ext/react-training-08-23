@@ -4,6 +4,8 @@ import {Box, Card, CardActions, CardContent, IconButton, Stack, TextField, Typog
 import EditIcon from '@mui/icons-material/Edit'
 import SaveIcon from '@mui/icons-material/Save'
 import DeleteIcon from '@mui/icons-material/Delete'
+import StarIcon from '@mui/icons-material/Star'
+import StarOutlineIcon from '@mui/icons-material/StarOutline'
 import tinycolor from 'tinycolor2';
 import {useComponentsTranslation} from "../../../i18n";
 import {useDeleteNote, useUpdateNote} from "../../hooks";
@@ -14,11 +16,11 @@ interface Props {
 
 export const NoteCard: FC<PropsWithChildren<Props>> = ({note}) => {
     const {t} = useComponentsTranslation('NoteCard')
-    
+
     const [editing, setEditing] = useState(false)
     const [title, setTitle] = useState(note.title);
     const [text, setText] = useState(note.text);
-    
+
     const {mutate: updateNote} = useUpdateNote();
     const {mutate: deleteNote} = useDeleteNote()
 
@@ -37,24 +39,27 @@ export const NoteCard: FC<PropsWithChildren<Props>> = ({note}) => {
             color: textColor
         }}>
             <CardContent>
-                <Box sx={{height: '200px'}}>
-                    <Stack spacing={2}>
+                <Box sx={{maxHeight: '200px'}}>
+                    <Stack spacing={2} sx={{height: '100%'}}>
                         {editing ?
                             <TextField value={title} label={t('title.label')} fullWidth
-                                       onChange={event => setTitle(event.target.value)}/> :
+                                       onChange={event => setTitle(event.target.value)}/>
+                            :
                             <Typography variant="h5">{title}</Typography>
                         }
                         {editing ?
                             <TextField value={text} label={t('text.label')} fullWidth
                                        multiline rows={4}
-                                       onChange={event => setText(event.target.value)}/> :
-                            <Typography>{text}</Typography>
+                                       onChange={event => setText(event.target.value)}/>
+                            :
+                            <Typography sx={{overflow: 'hidden', textOverflow: 'ellipsis'}} noWrap
+                                        dangerouslySetInnerHTML={{__html: text.replace(/\n/g, '<br>')}}/>
                         }
                     </Stack>
                 </Box>
             </CardContent>
             <CardActions>
-                <Stack direction="row" spacing={1} sx={{width: '100%', justifyContent: 'end'}}>
+                <Stack direction="row" sx={{width: '100%', justifyContent: 'end'}}>
                     {editing ?
                         <IconButton aria-label={t('saveButton.label')} onClick={() => {
                             setEditing(old => !old)
@@ -67,8 +72,21 @@ export const NoteCard: FC<PropsWithChildren<Props>> = ({note}) => {
                             <EditIcon/>
                         </IconButton>
                     }
-                    <IconButton aria-label={t('deleteButton.label')} onClick={() => deleteNote(note)} disabled={editing}>
-                        <DeleteIcon />
+                    {
+                        note.favorite ?
+                            <IconButton aria-label={t('unfavoriteButton.label')}
+                                        onClick={() => updateNote({...note, favorite: false})}>
+                                <StarIcon/>
+                            </IconButton>
+                            :
+                            <IconButton aria-label={t('favoriteButton.label')}
+                                        onClick={() => updateNote({...note, favorite: true})}>
+                                <StarOutlineIcon/>
+                            </IconButton>
+                    }
+                    <IconButton aria-label={t('deleteButton.label')} onClick={() => deleteNote(note)}
+                                disabled={editing}>
+                        <DeleteIcon/>
                     </IconButton>
                 </Stack>
             </CardActions>
