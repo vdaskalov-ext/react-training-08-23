@@ -17,11 +17,18 @@ const invalidateQueryCache = (queryClient: QueryClient) =>
 
 const fetchNotes = () =>
     fetch(`${environment.API_URL}/notes`, getAuthHeader())
-        .then(res => res.json());
+        .then(res => res.json() as unknown as Record<string, Note>);
 
 const addNote = (note: Note) =>
     fetch(`${environment.API_URL}/notes`, {
         method: 'PUT',
+        body: JSON.stringify({note}),
+        ...getAuthHeader()
+    }).then(res => res.json())
+
+const updateNote = (note: Note) =>
+    fetch(`${environment.API_URL}/notes/${note.id}`, {
+        method: 'PATCH',
         body: JSON.stringify({note}),
         ...getAuthHeader()
     }).then(res => res.json())
@@ -34,6 +41,13 @@ export const useNotes = () => {
 export const useAddNote = () => {
     const queryClient = useQueryClient();
     return useMutation(addNote, {
+        onSuccess: () => invalidateQueryCache(queryClient)
+    })
+}
+
+export const useUpdateNote = () => {
+    const queryClient = useQueryClient();
+    return useMutation(updateNote, {
         onSuccess: () => invalidateQueryCache(queryClient)
     })
 }

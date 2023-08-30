@@ -5,12 +5,6 @@ import {Note} from "../../model/note";
 import {NoteCard} from "../note-card";
 import {useAddNote, useNotes} from "../../hooks";
 
-const notes: Note[] = [
-    {text: 'Test Note Text1', title: 'Note Title'},
-    {text: 'Test Note Text2', title: 'Note Title'},
-    {text: 'Test Note Text3', title: 'Note Title'},
-]
-
 export const NotesGallery = () => {
     const {t} = useComponentsTranslation('NotesGallery')
     const {mutate: addNote} = useAddNote();

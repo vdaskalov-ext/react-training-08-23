@@ -55,7 +55,6 @@ export const AppContainer = () => {
                     </NavLink>
                 </Stack>
             </AppBar>
-            <h1>App Container</h1>
             <Outlet/>
         </Box>
     );
