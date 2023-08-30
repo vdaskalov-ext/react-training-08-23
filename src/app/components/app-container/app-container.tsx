@@ -42,6 +42,17 @@ export const AppContainer = () => {
                             </Button>
                         )}
                     </NavLink>
+                    <NavLink to={'/notes'}>
+                        {({isActive}) => (
+                            <Button
+                                sx={{borderRadius: 0}}
+                                color="secondary"
+                                variant={isActive ? 'contained' : 'text'}
+                            >
+                                {t('notes.navLink')}
+                            </Button>
+                        )}
+                    </NavLink>
                 </Stack>
             </AppBar>
             <h1>App Container</h1>

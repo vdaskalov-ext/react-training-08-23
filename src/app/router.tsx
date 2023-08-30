@@ -13,6 +13,7 @@ const Register = lazy(() => import('./pages/register'));
 const NotFound = lazy(() => import('./pages/not-found'));
 const PlanetDetails = lazy(() => import('./pages/planet-details'));
 const IssuesTracker = lazy(() => import('./issue/components/issues-tracker'));
+const Notes = lazy(() => import('./pages/notes'));
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
                     {path: 'planets/:id', element: <PlanetDetails/>},
                     {path: '/forbidden', element: <div>Hey, you are logged in!</div>},
                     {path: '/issues', element: <IssuesTracker/>},
+                    {path: '/notes', element: <Notes/>},
                 ],
             },
             {path: 'login', element: <Login/>},
@@ -41,5 +43,6 @@ export const router = createBrowserRouter([
         ],
     },
     {path: '/public', element: <Home/>},
+    {path: '/public-notes', element: <Notes/>},
     {path: '*', element: <NotFound/>},
 ]);

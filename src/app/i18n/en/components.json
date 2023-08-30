@@ -2,6 +2,26 @@
   "AppContainer": {
     "issues": {
       "navLink": "Issues-Table"
+    },
+    "notes": {
+      "navLink": "Notes"
+    }
+  },
+  "NotesGallery": {
+    "title": "Notes Gallery"
+  },
+  "NoteCard": {
+    "editButton": {
+      "label": "Edit note"
+    },
+    "saveButton": {
+      "label": "Save note"
+    },
+    "title": {
+      "label": "Note"
+    },
+    "text": {
+      "label": "Description"
     }
   }
 }
