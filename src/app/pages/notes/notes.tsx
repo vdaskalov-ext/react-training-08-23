@@ -1,3 +1,3 @@
-import {NotesGallery} from "../../notes/components/notes-gallery/notes-gallery";
+import {NotesGallery} from "../../notes/components/notes-gallery";
 
 export const Notes = () => (<NotesGallery/>)
