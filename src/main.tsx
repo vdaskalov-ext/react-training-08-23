@@ -6,6 +6,7 @@ import {RouterProvider} from 'react-router-dom';
 import {router} from './app/router';
 import {store} from './app/redux/store';
 import {initI18n} from "./app/i18n";
+import {ErrorBoundary} from "./app/components/error-boundary";
 // import App from './app/app';
 
 const root = ReactDOM.createRoot(
@@ -16,10 +17,12 @@ initI18n();
 
 root.render(
     <StrictMode>
-        <Suspense fallback={<div>Loading...</div>}>
-            <Provider store={store}>
-                <RouterProvider router={router}/>
-            </Provider>
-        </Suspense>
+        <ErrorBoundary>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Provider store={store}>
+                    <RouterProvider router={router}/>
+                </Provider>
+            </Suspense>
+        </ErrorBoundary>
     </StrictMode>
 );
