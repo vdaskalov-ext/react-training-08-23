@@ -6,6 +6,7 @@ import SaveIcon from '@mui/icons-material/Save'
 import DeleteIcon from '@mui/icons-material/Delete'
 import StarIcon from '@mui/icons-material/Star'
 import StarOutlineIcon from '@mui/icons-material/StarOutline'
+import PaletteIcon from '@mui/icons-material/Palette'
 import tinycolor from 'tinycolor2';
 import {useComponentsTranslation} from "../../../i18n";
 import {useDeleteNote, useUpdateNote} from "../../hooks";
@@ -84,6 +85,10 @@ export const NoteCard: FC<PropsWithChildren<Props>> = ({note}) => {
                                 <StarOutlineIcon/>
                             </IconButton>
                     }
+                    <IconButton aria-label={t('colorButton.label')} onClick={() => updateNote({...note, color: tinycolor.random().toHexString()})}
+                                disabled={editing}>
+                        <PaletteIcon/>
+                    </IconButton>
                     <IconButton aria-label={t('deleteButton.label')} onClick={() => deleteNote(note)}
                                 disabled={editing}>
                         <DeleteIcon/>

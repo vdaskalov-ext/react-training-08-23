@@ -32,6 +32,9 @@
     "unfavoriteButton": {
       "label": "Unfavorite note"
     },
+    "colorButton": {
+      "label": "Change note color randomly"
+    },
     "title": {
       "label": "Note"
     },
